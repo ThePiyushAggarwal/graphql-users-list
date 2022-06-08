@@ -1,21 +1,22 @@
 const User = require('./users.model')
 
-const createUser = async (args) => {
+// Create a user
+const createUser = async ({ input }) => {
   const newUser = {
-    firstName: args.firstName,
-    lastName: args.lastName,
-    age: args.age,
+    firstName: input.firstName,
+    lastName: input.lastName,
+    age: input.age,
   }
   const response = await User.create(newUser)
   return response
 }
 
 // Updating user
-const updateUser = async (args) => {
-  const id = args.id
-  const firstName = args.firstName
-  const lastName = args.lastName
-  const age = args.age
+const updateUser = async ({ input }) => {
+  const id = input.id
+  const firstName = input.firstName
+  const lastName = input.lastName
+  const age = input.age
 
   // If no updated value is given
   if (!firstName && !lastName && !age) {
@@ -27,8 +28,6 @@ const updateUser = async (args) => {
     { firstName, lastName, age },
     { new: true, runValidators: true }
   )
-
-  console.log(updatedUser)
 
   // If user is not updated for some reason
   if (!updatedUser) {

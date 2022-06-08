@@ -1,6 +1,12 @@
 import Button from 'react-bootstrap/Button'
+import { GET_USERS, DELETE_USER } from '../queries/queries'
+import { useMutation } from '@apollo/client'
 
-function UserDetails({ user, index, onClickDelete }) {
+function UserDetails({ user, index }) {
+  const [onClickDelete] = useMutation(DELETE_USER, {
+    refetchQueries: [{ query: GET_USERS }],
+  })
+
   return (
     <tr>
       <td>{index + 1}</td>

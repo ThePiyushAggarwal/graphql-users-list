@@ -5,7 +5,6 @@ const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
 const express = require('express')
 const http = require('http')
 const connectDB = require('./config/db')
-const morgan = require('morgan')
 
 // These get all the typeDefs and resolvers
 const { loadFilesSync } = require('@graphql-tools/load-files')
@@ -17,6 +16,7 @@ const schema = makeExecutableSchema({
   resolvers: resolversArray,
 })
 
+// Apollo Server function. Boilderplate from documentation
 async function startApolloServer() {
   const app = express()
   const httpServer = http.createServer(app)
@@ -29,8 +29,6 @@ async function startApolloServer() {
   await server.start()
 
   await connectDB()
-
-  app.use(morgan('tiny'))
 
   server.applyMiddleware({ app })
   await new Promise((resolve) => httpServer.listen(PORT, resolve))

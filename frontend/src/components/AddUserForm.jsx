@@ -1,15 +1,8 @@
 import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import { gql, useMutation } from '@apollo/client'
-
-const CREATE_USER = gql`
-  mutation CreateUser($firstName: String!, $lastName: String!, $age: Int!) {
-    createUser(firstName: $firstName, lastName: $lastName, age: $age) {
-      firstName
-    }
-  }
-`
+import { useMutation } from '@apollo/client'
+import { GET_USERS, CREATE_USER } from '../queries/queries'
 
 function AddUserForm() {
   const [formData, setFormData] = useState({
@@ -21,7 +14,8 @@ function AddUserForm() {
   const { firstName, lastName, age } = formData
 
   const [addUser] = useMutation(CREATE_USER, {
-    variables: { firstName, lastName, age: parseInt(age) },
+    variables: { input: { firstName, lastName, age: parseInt(age) } },
+    refetchQueries: [{ query: GET_USERS }],
   })
 
   const onSubmit = (e) => {

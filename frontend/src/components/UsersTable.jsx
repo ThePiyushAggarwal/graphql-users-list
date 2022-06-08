@@ -1,34 +1,10 @@
 import UserDetails from './UserDetails'
 import Table from 'react-bootstrap/Table'
-import { useQuery, gql, useMutation } from '@apollo/client'
-
-const GET_USERS = gql`
-  query {
-    getUsers {
-      id
-      firstName
-      lastName
-      age
-    }
-  }
-`
-
-const DELETE_USER = gql`
-  mutation DeleteUser($id: ID!) {
-    deleteUser(id: $id) {
-      firstName
-    }
-  }
-`
+import { useQuery } from '@apollo/client'
+import { GET_USERS } from '../queries/queries'
 
 function UsersTable() {
-  const { loading, data, error, refetch } = useQuery(GET_USERS)
-
-  const [onClickDelete, { data: a }] = useMutation(DELETE_USER)
-
-  if (a) {
-    refetch()
-  }
+  const { loading, data, error } = useQuery(GET_USERS)
 
   if (error) return <h1>{error.message}</h1>
 
@@ -46,14 +22,15 @@ function UsersTable() {
         </tr>
       </thead>
       <tbody>
-        {data?.getUsers?.map((user, index) => (
-          <UserDetails
-            key={user.id}
-            user={user}
-            index={index}
-            onClickDelete={onClickDelete}
-          />
-        ))}
+        {data?.getUsers?.length >= 1 ? (
+          data?.getUsers?.map((user, index) => (
+            <UserDetails key={user.id} user={user} index={index} />
+          ))
+        ) : (
+          <tr>
+            <td colSpan={5}>No users at present</td>
+          </tr>
+        )}
       </tbody>
     </Table>
   )
