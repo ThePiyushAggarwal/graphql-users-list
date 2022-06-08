@@ -4,8 +4,6 @@ import Container from 'react-bootstrap/Container'
 import Header from './components/Header'
 import UsersTable from './components/UsersTable'
 import AddUserForm from './components/AddUserForm'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
@@ -17,7 +15,6 @@ function App() {
           <AddUserForm />
         </Container>
       </Stack>
-      <ToastContainer />
     </ThemeProvider>
   )
 }

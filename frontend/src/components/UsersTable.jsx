@@ -11,7 +11,7 @@ function UsersTable() {
   if (loading) return <h1>Loading...</h1>
 
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover responsive>
       <thead>
         <tr>
           <th>#</th>

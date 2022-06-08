@@ -21,6 +21,11 @@ function AddUserForm() {
   const onSubmit = (e) => {
     e.preventDefault()
     addUser()
+    setFormData({
+      firstName: '',
+      lastName: '',
+      age: '',
+    })
   }
 
   const onChange = (e) => {
@@ -34,7 +39,7 @@ function AddUserForm() {
     <>
       <h1>Add User</h1>
       <Form onSubmit={onSubmit}>
-        <Form.Group>
+        <Form.Group className="pb-2">
           <Form.Control
             placeholder="First Name"
             type="text"
@@ -43,7 +48,7 @@ function AddUserForm() {
             onChange={onChange}
           />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="pb-2">
           <Form.Control
             placeholder="Last Name"
             type="text"
@@ -52,7 +57,7 @@ function AddUserForm() {
             onChange={onChange}
           />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="pb-2">
           <Form.Control
             placeholder="Age Name"
             type="text"

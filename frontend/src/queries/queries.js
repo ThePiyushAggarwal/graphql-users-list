@@ -30,4 +30,12 @@ const DELETE_USER = gql`
   }
 `
 
-export { CREATE_USER, DELETE_USER, GET_USERS }
+const UPDATE_USER = gql`
+  mutation ($input: UpdateUserInput) {
+    updateUser(input: $input) {
+      id
+    }
+  }
+`
+
+export { CREATE_USER, DELETE_USER, GET_USERS, UPDATE_USER }
